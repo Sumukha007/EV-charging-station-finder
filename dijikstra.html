@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dijkstra Algorithm Result</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('mapss.jpg'); /* Background image */
+            background-size: cover;
+            background-position: center;
+            color: white; /* Text color */
+            font-family: Arial, sans-serif; /* Font family */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .results {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px; /* Added margin bottom to separate from the next section */
+        }
+        .results h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .results p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .results ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .results li {
+            margin-bottom: 10px;
+        }
+        #totalDistance {
+            font-size: 20px;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: white; /* Footer text color */
+        }
+        footer p {
+            font-size: 14px;
+        }
+
+        /* New styles for the "Book your spark" section */
+        .book-spark {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 auto; /* Center horizontally */
+            width: 70%; /* Adjust the width as needed */
+        }
+        .book-spark h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .book-spark ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .book-spark li {
+            margin-bottom: 10px;
+        }
+        .book-spark a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="results">
+            <h2>The nearest sparks are:</h2>
+            <ul>
+                <!-- Distances will be populated dynamically -->
+            </ul>
+            <!-- <p>Total distance: <strong id="totalDistance">3.5 km</strong></p> -->
+        </div>
+        <div class="book-spark">
+            <h2>Book your spark:</h2>
+            <ul>
+                <li><a href="normal.html">Normal</a></li>
+                <li><a href="fast.html">Fast Charge</a></li>
+                <li><a href="reserve.html">Reserve</a></li>
+                <!-- Add Priority feature -->
+                <li><a href="prior.html">Priority</a></li> <!-- Connect to prior.html -->
+            </ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Charging Station Finder</p>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var startLocation = urlParams.get('startLocation');
+            // Calculate distances based on the startLocation
+            // Here you would implement the Dijkstra algorithm to calculate distances
+            var AnanthpuraDistance = Math.random() * 5;
+            var AtturDistance = Math.random() * 5;
+            var YelahankaDistance = Math.random() * 5;
+            
+            // Create an array to store distances and point names
+            var distances = [
+                { name: "Ananthpura gate", distance: AnanthpuraDistance },
+                { name: "Attur layout", distance: AtturDistance },
+                { name: "Yelahanka Old Town", distance: YelahankaDistance }
+            ];
+
+            // Sort distances in ascending order
+            distances.sort((a, b) => a.distance - b.distance);
+
+            // Display the calculated distances
+            distances.forEach(point => {
+                var listItem = document.createElement("li");
+                listItem.textContent = point.name + " - Distance: " + point.distance.toFixed(2) + " km";
+                document.querySelector(".results ul").appendChild(listItem);
+            });
+
+            // var totalDistance = AnanthpuraDistance + AtturDistance + YelahankaDistance;
+            // document.getElementById("totalDistance").innerText = totalDistance.toFixed(2) + " km";
+        };
+    </script>
+</body>
+</html>

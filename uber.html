@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charging Station Finder</title>
+    <link rel="stylesheet" href="uber.css">
+    <style>
+        .imgs img {
+            width: auto;
+            height: 50px; /* Adjust the height as needed */
+        }
+        .ReVolt {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .auto {
+            width: 200px;
+            margin: 20px;
+        }
+        .auto img {
+            width: 100px; /* Set the width of all images */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/f30fac2c61.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+        <div class="left">
+            <img src="revolt.jpg" alt="">
+            <p>Company</p>
+            <p>Safety</p>
+            <p>Help</p>
+        </div>
+        <div class="right">
+            <p>EN</p>
+            <i class="fa-solid fa-grip"></i>
+            <p>Products</p>
+            <p>Login</p>
+            <a href="javascript:void(0)" onclick="searchChargingStations()"><button>Sign up</button></a>
+        </div>
+    </nav>
+
+    <div class="card">
+        <div class="main">
+            <div class="icon">
+                <div class="car">
+                    <i class="fa-solid fa-car"></i>
+                    <p>Drive</p>
+                </div>
+                <div class="car">
+                    <i class="fa-solid fa-wifi"></i>
+                    <p>Ride</p>
+                </div>
+            </div>
+            <h1>Find your Spark!</h1>
+            <input type="text" id="start" placeholder="Enter location" onkeydown="if (event.key === 'Enter') searchChargingStations()">
+            <!-- Added the onkeydown event to trigger searchChargingStations() function when Enter key is pressed -->
+            <input type="button" value="Use Your Current Location" onclick="getLocationAndSearch()" id="locationButton">
+        </div>
+    </div>
+
+    <div class="head">
+        <h1>Features:</h1>
+    </div>
+
+    <div class="ride">
+        <div class="ReVolt">
+            <div class="auto">
+                <img src="prior.png" alt="">
+                <div>
+                    <h2>Priority</h2>
+                    <p>Plug in Now</p>
+                </div>
+            </div>
+
+            <div class="auto">
+                <img src="C:\Users\SATHYA\OneDrive\Desktop\reVolt\normal_charge.png" alt="">
+                <div>
+                    <h2>Normal</h2>
+                    <p>Get affordable charge with no handling.</p>
+                </div>
+            </div>
+
+            <div class="auto">
+                <img src="C:\Users\SATHYA\OneDrive\Desktop\reVolt\fast_charge.png" alt="">
+                <div>
+                    <h2>Fast Charge</h2>
+                    <p>Get fast charging to save time.</p>
+                </div>
+            </div>
+
+            <div class="auto">
+                <img src="reserve.jpg" alt="">
+                <div>
+                    <h2>Reserve</h2>
+                    <p>Reserve your spark</p>
+                </div>
+            </div>
+
+            <div class="auto">
+                <img src="revolt.jpg" alt="">
+                <div>
+                    <h2>ReVolt application</h2>
+                    <p>Get the ReVolt app for easy access to charging stations.</p>
+		    <a href="https://play.google.com/store/apps/details?id=your_app_package_name_here" target="_blank"><button>Download</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getLocationAndSearch() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById("start").value = position.coords.latitude + ", " + position.coords.longitude;
+                    searchChargingStations();
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function searchChargingStations() {
+            var location = document.getElementById("start").value.trim();
+            if (location) {
+                // Perform the search operation or navigate to the desired page
+                window.location.href = "dijikstra.html?startLocation=" + location;
+            } else {
+                alert("Please enter a location or click 'From Your Location' to use your current location.");
+            }
+        }
+
+        // Replace charging points
+        window.onload = function() {
+            var chargingPoints = document.getElementById("chargingPoints");
+            chargingPoints.innerHTML = ""; // Clear existing options
+            var newChargingPoints = ["Kazam charging point", "Shell recharge", "Electric vehicle charging point"];
+            newChargingPoints.forEach(point => {
+                var option = document.createElement("option");
+                option.text = point;
+                chargingPoints.add(option);
+            });
+        };
+    </script>
+
+</body>
+</html>

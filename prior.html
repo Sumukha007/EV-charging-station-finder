@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Charging</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background */
+            color: white; /* Text color */
+            font-family: Arial, sans-serif; /* Font family */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .results {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .results h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .results p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .results input[type="number"] {
+            font-size: 16px;
+            padding: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .results button {
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .results button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: white; /* Footer text color */
+        }
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="results">
+            <h2>Select your spark:</h2>
+            <select id="chargingPoints" onchange="checkChargingPoint()">
+                <!-- Distances will be populated dynamically -->
+            </select>
+            <h2>Enter minutes:</h2>
+            <input type="number" id="minutesInput" placeholder="Enter minutes" min="1" step="1" required>
+            <h2>Your price is:</h2>
+            <p id="price"></p>
+            <a href="pay4.html"><button id="proceedButton">Proceed to payment</button></a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Charging Station Finder</p>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            // Dummy distances (replace with actual values from dijikstra.html)
+            var chargingPoints = ["Ananthpura gate", "Attur layout", "Yelahanka Old Town"];
+            
+            // Populate the dropdown menu with charging points
+            var selectElement = document.getElementById("chargingPoints");
+            chargingPoints.forEach(point => {
+                var option = document.createElement("option");
+                option.text = point;
+                selectElement.add(option);
+            });
+
+            // Calculate and display the price based on entered minutes
+            function calculatePrice() {
+                var minutes = parseInt(document.getElementById("minutesInput").value);
+                var price = minutes * 3.5; // Rs. 3.5 per minute
+                document.getElementById("price").textContent = "Rs. " + price.toFixed(2);
+            }
+
+            // Calculate price when minutes are entered
+            document.getElementById("minutesInput").addEventListener("input", calculatePrice);
+        };
+
+        // Function to check charging point availability
+        function checkChargingPoint() {
+            var selectElement = document.getElementById("chargingPoints");
+            var selectedPoint = selectElement.value;
+
+            // Check if charging point is free 3 out of 6 times
+            var isFree = Math.random() < 0.5; // 50% chance of being free
+            if (!isFree) {
+                var selectedIndex = selectElement.selectedIndex;
+                var nextIndex = (selectedIndex + 1) % chargingPoints.length;
+                var nextNearestPoint = chargingPoints[nextIndex].textContent; // Access text content
+                document.getElementById("price").textContent = "Sparks not available, the next nearest spark is: " + nextNearestPoint;
+            } else {
+                document.getElementById("price").textContent = ""; // Clear the message if point is free
+            }
+        }
+    </script>
+</body>
+</html>

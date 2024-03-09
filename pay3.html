@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background */
+            color: white; /* Text color */
+            font-family: Arial, sans-serif; /* Font family */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container h1 {
+            font-size: 72px; /* Reduced font size */
+            margin-bottom: 20px;
+        }
+        .container p {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .loading-box {
+            width: 200px;
+            height: 20px;
+            background-color: #333; /* Normal color */
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px; /* Add margin */
+        }
+        .loading-progress {
+            width: 30%;
+            height: 100%;
+            background-color: green; /* Green color */
+            position: absolute;
+            top: 0;
+            left: 0; /* Move the indicator back to the left */
+        }
+        .tagline {
+            font-size: 18px;
+        }
+        img {
+            max-width: 200px; /* Adjusted max-width */
+            max-height: 200px; /* Adjusted max-height */
+            margin-bottom: 20px; /* Add margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <img src="check_mark.png" alt="Payment successful image"> <!-- Image added here -->
+            <h1>Payment successful!</h1>
+        </div>
+        <p>Spark is available from <span id="sparkTime"></span>.</p>
+        <div class="loading-container">
+            <div class="loading-box">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="tagline">Charge left: 30%</p> <!-- Added "30%" -->
+        </div>
+    </div>
+
+    <script>
+        // Get current time
+        var currentTime = new Date();
+        // Add random minutes within 2 hours
+        var randomMinutes = Math.floor(Math.random() * 120) + 1;
+        currentTime.setMinutes(currentTime.getMinutes() + randomMinutes);
+        // Format time in 24-hour format
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+        // Display time
+        document.getElementById("sparkTime").textContent = formattedTime;
+    </script>
+</body>
+</html>
